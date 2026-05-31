@@ -1,0 +1,29 @@
+class Ingredient:
+    def __init__(self, name: str, quantity: float, unit: str):
+        self.name=name
+        self.quantity=quantity 
+        self.unit=unit
+
+    @property
+    def quantity(self):
+        return self._quantity
+
+    @quantity.setter
+    def quantity(self, value):
+        val=float(value)
+        if val<=0:
+            raise ValueError("Количество должно быть положительным")
+        self._quantity=val
+
+    def __str__(self):
+        return f"{self.name}: {self.quantity} {self.unit}"
+
+    def __repr__(self):
+        return f"Ingredient('{self.name}', {self.quantity}, '{self.unit}')"
+
+    def __eq__(self, inother):
+        if type(self)!=type(inother):
+            return False
+        return self.name==inother.name and self.unit==inother.unit
+    
+    
