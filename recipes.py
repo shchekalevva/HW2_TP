@@ -26,4 +26,44 @@ class Ingredient:
             return False
         return self.name==inother.name and self.unit==inother.unit
     
-    
+class Recipe:
+    def __init__(self, title: str, ingredients=None):
+        self.title = title
+        if ingredients is not None:
+            self.ingredients = ingredients
+        else:
+            self.ingredients = []
+
+    def add_ingredient(self, ingredient):
+        for i in self.ingredients:
+            if i == ingredient:
+                i.quantity += ingredient.quantity
+                break
+        else:
+            self.ingredients.append(ingredient)
+
+    @staticmethod
+    def is_valid_ratio(ratio):
+        if type(ratio) in (int, float):
+            if ratio > 0:
+                return True
+        return False
+
+    def scale(self, ratio: float):
+        if not self.is_valid_ratio(ratio):
+            raise ValueError("Коэффициент должен быть положительным числом")
+        ingredients1 = []
+        for i in self.ingredients:
+            scaled_quantity = i.quantity * ratio
+            ingredient1 = Ingredient(i.name, scaled_quantity, i.unit)
+            ingredients1.append(ingredient1)
+        return Recipe(self.title, ingredients1)
+
+    def __len__(self):
+        return len(self.ingredients)
+
+    def __str__(self):
+        result = f"Рецепт блюда: {self.title}\nИнгредиенты:\n"
+        for i in self.ingredients:
+            result += f" - {i}\n"
+        return result.strip()
