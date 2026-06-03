@@ -68,7 +68,7 @@ def test_recipe_len():
     
     assert len(recipe) == 2
 
-
+def test_shopping_list_add_recipe():
     list_to_buy = ShoppingList()
     recipe = Recipe("Пицца")
     recipe.add_ingredient(Ingredient("Мука", 500.0, "г"))
